@@ -130,7 +130,7 @@
             </tbody>
         </table>
 
-        <h3>HID report descriptor library and tools</h3>
+        <h3>HID report descriptor library and tools - <em>hidrd</em></h3>
 
         <table>
             <tbody>
@@ -160,6 +160,47 @@
                 </tr>
             </tbody>
         </table>
+
+        <h4>About</h4>
+        <p>
+            <em>Hidrd</em> is a library and collection of tools for parsing and
+            generating HID report descriptors. The main documents used during
+            the implementation are
+            <a href="http://www.usb.org/developers/devclass_docs/HID1_11.pdf">Device Class Definition for HID 1.11</a>
+            and
+            <a href="http://www.usb.org/developers/devclass_docs/Hut1_12.pdf">HID Usage Tables 1.12</a>.
+        </p>
+        <p>
+            Currently, native descriptor format is fully supported.  A HID
+            report descriptor XML schema is developed and XML writing is
+            supported.  A tool called &quot;<em>hidrd-convert</em>&quot; is
+            implemented and could be used to convert descriptors from native to
+            XML format.
+        </p>
+
+        <h4>Roadmap</h4>
+        <p>
+            The main goal currently is to have XML reading. For that to be done
+            efficiently a refactoring of streams library is needed - most
+            probably they will be separated into sources and sinks (bug
+            <a href="https://sourceforge.net/tracker/?func=detail&aid=2941208&group_id=233297&atid=1089171">2941208</a>)
+            with an addition of filters.  Also, source file references (bug
+            <a href="https://sourceforge.net/tracker/?func=detail&aid=2951097&group_id=233297&atid=1089171">2951097</a>)
+            and conversion error reporting are better be implemented along with
+            XML reading.
+        </p>
+        <p>
+            Then validation needs to be cleaned up (bugs
+            <a href="https://sourceforge.net/tracker/?func=detail&aid=2950561&group_id=233297&atid=1089171">2950561</a>
+            and
+            <a href="https://sourceforge.net/tracker/?func=detail&aid=2941207&group_id=233297&atid=1089171">2941207</a>).
+            After that, the time may come to implement a stream validation
+            filter with recommendations from
+            <a href="http://www.usb.org/developers/hidpage/hidpar.pdf">HID Parser Error Checking</a>.
+        </p>
+        <p>
+            At some point in time support for outputting to C source and HID specification example format may be implemented.
+        </p>
 
         <h2>History</h2>
 
