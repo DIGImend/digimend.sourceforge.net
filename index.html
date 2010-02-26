@@ -10,13 +10,15 @@
             }
             tbody th {
                 text-align: right;
-                line-height: 1em;
+                vertical-align: top;
+                line-height: 1.4em;
             }
             tbody th:after {
                 content: ":";
             }
             td {
-                line-height: 1em;
+                vertical-align: top;
+                line-height: 1.4em;
             }
 
         </style>
@@ -50,12 +52,22 @@
             others.
         </p>
 
+        <h2>Roadmap</h2>
         <p>
             The plan, in the first place, is to make these tablets work
             correctly with the Linux kernel's generic USB HID driver. The
             project is based on the assumption that the main problem with
             the kernel support are incorrect or incomplete HID report
             descriptors which the tablets provide.
+        </p>
+
+        <p>
+            For this to be possible the following tools are needed: a USB
+            HID report descriptor dumping and editing utilities, HID
+            report stream dumping utility, evdev event stream dumping
+            utility. Of these the HID report stream dumping utility is
+            missing and the editing utility is incomplete. However, these
+            are the most difficult to implement.
         </p>
 
         <p>
@@ -92,18 +104,29 @@
                     <td>GPL v2</td>
                 </tr>
                 <tr>
-                    <th>SVN tree</th>
+                    <th>Sources</th>
                     <td>
-                        <a
-                            href="https://digimend.svn.sourceforge.net/svnroot/digimend/kernel-patches/">
-                            https://digimend.svn.sourceforge.net/svnroot/digimend/kernel-patches/
-                        </a>
+                        <a href="http://digimend.svn.sourceforge.net/viewvc/digimend/kernel-patches/">SVN browse</a>
+                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/kernel-patches/">SVN tree</a>
                     </td>
                 </tr>
             </tbody>
         </table>
 
+        <h4>About</h4>
         <p>
+            Only proof of concept work has been done: the patches fix
+            support for tablets based on UC-LOGIC WP8060U, namely Genius
+            MousePen 8x6.
+        </p>
+
+        <h4>Roadmap</h4>
+        <p>
+            When required tools are implemented, support for more devices
+            will be added and the attempts to submit to upstream will start.
+
+            The priority is the most widely available unsupported devices
+            and kernel versions used by stable distributions.
         </p>
 
         <h3>X.org patches</h3>
@@ -119,18 +142,33 @@
                     <td>MIT</td>
                 </tr>
                 <tr>
-                    <th>SVN tree</th>
+                    <th>Sources</th>
                     <td>
-                        <a
-                            href="https://digimend.svn.sourceforge.net/svnroot/digimend/evdev-patches/">
-                            https://digimend.svn.sourceforge.net/svnroot/digimend/evdev-patches/
-                        </a>
+                        <a href="http://digimend.svn.sourceforge.net/viewvc/digimend/evdev-patches/">SVN browse</a>
+                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/evdev-patches/">SVN tree</a>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <h3>HID report descriptor library and tools - <em>hidrd</em></h3>
+        <h4>About</h4>
+        <p>
+            Only proof of concept work has been done: the only working
+            version of the patch is for 1:2.0.8-1 Debian version of the
+            evdev driver. The patch wasn't accepted by the original
+            developer because it tries to cater to The GIMP's
+            idiosyncrasies.
+        </p>
+
+        <h4>Roadmap</h4>
+        <p>
+            After the fixing of the kernel support will be made possible
+            with the implementation of the required tools, the work on evdev
+            patches will be continued and negotiations with the original
+            developer will be resumed.
+        </p>
+
+        <h3>HID report descriptor library and tools &mdash; <em>hidrd</em></h3>
 
         <table>
             <tbody>
@@ -143,19 +181,18 @@
                     <td>GPL v2 or later</td>
                 </tr>
                 <tr>
-                    <th>SVN tree</th>
+                    <th>Sources</th>
                     <td>
-                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/hidrd/">
-                            https://digimend.svn.sourceforge.net/svnroot/digimend/hidrd/
-                        </a>
+                        <a href="https://sourceforge.net/projects/digimend/files/hidrd/">Release tarballs</a>
+                        <a href="http://digimend.svn.sourceforge.net/viewvc/digimend/hidrd/">SVN browse</a>
+                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/hidrd/">SVN tree</a>
                     </td>
                 </tr>
                 <tr>
-                    <th>Download</th>
+                    <th>Bugs</th>
                     <td>
-                        <a href="https://sourceforge.net/projects/digimend/files/hidrd/">
-                            https://sourceforge.net/projects/digimend/files/hidrd/
-                        </a>
+                        <a href="https://sourceforge.net/tracker/?func=browse&group_id=233297&atid=1089171&category=1344007">Browse</a>
+                        <a href="https://sourceforge.net/tracker/?func=add&group_id=233297&atid=1089171">Submit</a> (please use hidrd category)
                     </td>
                 </tr>
             </tbody>
@@ -181,7 +218,7 @@
         <h4>Roadmap</h4>
         <p>
             The main goal currently is to have XML reading. For that to be done
-            efficiently a refactoring of streams library is needed - most
+            efficiently a refactoring of streams library is needed &mdash; most
             probably they will be separated into sources and sinks (bug
             <a href="https://sourceforge.net/tracker/?func=detail&aid=2941208&group_id=233297&atid=1089171">2941208</a>)
             with an addition of filters.  Also, source file references (bug
@@ -201,6 +238,101 @@
         <p>
             At some point in time support for outputting to C source and HID specification example format may be implemented.
         </p>
+
+        <h3>HID report descriptor dumping utility &mdash; <em>hidrd-dump</em></h3>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>Status</th>
+                    <td>Release 0.1 available</td>
+                </tr>
+                <tr>
+                    <th>License</th>
+                    <td>GPL v2 or later</td>
+                </tr>
+                <tr>
+                    <th>Sources</th>
+                    <td>
+                        <a href="https://sourceforge.net/projects/digimend/files/hidrd-dump/">Release tarballs</a>
+                        <a href="http://digimend.svn.sourceforge.net/viewvc/digimend/hidrd-dump/">SVN browse</a>
+                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/hidrd-dump/">SVN tree</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Bugs</th>
+                    <td>
+                        <a href="https://sourceforge.net/tracker/?func=browse&group_id=233297&atid=1089171&category=1344008">Browse</a>
+                        <a href="https://sourceforge.net/tracker/?func=add&group_id=233297&atid=1089171">Submit</a> (please use hidrd-dump category)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>About</h4>
+
+        <p>
+            <em>Hidrd-dump</em> is a tiny utility using libhid to dump HID
+            report descriptors from USB devices.
+            <strong>Please note:</strong> xxd -r -p chokes on
+            hidrd-dump output (see Debian Bug
+            <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=567041">567041</a>),
+            so you will need to pass it to tr -d ' \n' first, if
+            you wish to convert it to binary.
+        </p>
+
+        <h4>Roadmap</h4>
+
+        <p>
+            After improving command line interface the development on
+            hidrd-dump will be stopped in favor of <em>hid-dump</em> &mdash;
+            a new project based on libusb 1.0.
+        </p>
+
+
+        <h3>Evdev stream dumping utility &mdash; <em>evdev-dump</em></h3>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>Status</th>
+                    <td>Release 0.2 available</td>
+                </tr>
+                <tr>
+                    <th>License</th>
+                    <td>GPL v2 or later</td>
+                </tr>
+                <tr>
+                    <th>Sources</th>
+                    <td>
+                        <a href="https://sourceforge.net/projects/digimend/files/evdev-dump/">Release tarballs</a>
+                        <a href="http://digimend.svn.sourceforge.net/viewvc/digimend/evdev-dump/">SVN browse</a>
+                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/evdev-dump/">SVN tree</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Bugs</th>
+                    <td>
+                        <a href="https://sourceforge.net/tracker/?func=browse&group_id=233297&atid=1089171&category=1344009">Browse</a>
+                        <a href="https://sourceforge.net/tracker/?func=add&group_id=233297&atid=1089171">Submit</a> (please use evdev-dump category)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>About</h4>
+
+        <p>
+            <em>Evdev-dump</em> is a very simple utility for dumping evdev
+            (generic input event) streams from the event devices.
+        </p>
+
+        <h4>Roadmap</h4>
+
+        <p>
+            Only bugfixing and occasional minor improvements are expected.
+        </p>
+
 
         <h2>History</h2>
 
