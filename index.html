@@ -8,6 +8,17 @@
             img {
                 border-style: none;
             }
+            tbody th {
+                text-align: right;
+                line-height: 1em;
+            }
+            tbody th:after {
+                content: ":";
+            }
+            td {
+                line-height: 1em;
+            }
+
         </style>
     </head>
     <body>
@@ -71,20 +82,21 @@
         <h3>Kernel patches</h3>
 
         <table>
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>License</th>
-                    <th>Download</th>
-                </tr>
-            </thead>
             <tbody>
                 <tr>
+                    <th>Status</th>
                     <td>Proof-of-concept</td>
+                </tr>
+                <tr>
+                    <th>License</th>
                     <td>GPL v2</td>
+                </tr>
+                <tr>
+                    <th>SVN tree</th>
                     <td>
-                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/patches/trunk/kernel/">
-                            Subversion repository
+                        <a
+                            href="https://digimend.svn.sourceforge.net/svnroot/digimend/kernel-patches/">
+                            https://digimend.svn.sourceforge.net/svnroot/digimend/kernel-patches/
                         </a>
                     </td>
                 </tr>
@@ -97,20 +109,21 @@
         <h3>X.org patches</h3>
 
         <table>
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>License</th>
-                    <th>Download</th>
-                </tr>
-            </thead>
             <tbody>
                 <tr>
+                    <th>Status</th>
                     <td>Proof-of-concept</td>
+                </tr>
+                <tr>
+                    <th>License</th>
                     <td>MIT</td>
+                </tr>
+                <tr>
+                    <th>SVN tree</th>
                     <td>
-                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/patches/trunk/evdev/">
-                            Subversion repository
+                        <a
+                            href="https://digimend.svn.sourceforge.net/svnroot/digimend/evdev-patches/">
+                            https://digimend.svn.sourceforge.net/svnroot/digimend/evdev-patches/
                         </a>
                     </td>
                 </tr>
@@ -120,20 +133,28 @@
         <h3>HID report descriptor library and tools</h3>
 
         <table>
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>License</th>
-                    <th>Download</th>
-                </tr>
-            </thead>
             <tbody>
                 <tr>
-                    <td>Alpha</td>
+                    <th>Status</th>
+                    <td>Release 0.1 available</td>
+                </tr>
+                <tr>
+                    <th>License</th>
                     <td>GPL v2 or later</td>
+                </tr>
+                <tr>
+                    <th>SVN tree</th>
                     <td>
-                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/hidrd/trunk/">
-                            Subversion repository
+                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/hidrd/">
+                            https://digimend.svn.sourceforge.net/svnroot/digimend/hidrd/
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Download</th>
+                    <td>
+                        <a href="https://sourceforge.net/projects/digimend/files/hidrd/">
+                            https://sourceforge.net/projects/digimend/files/hidrd/
                         </a>
                     </td>
                 </tr>
