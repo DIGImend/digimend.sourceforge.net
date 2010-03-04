@@ -224,13 +224,15 @@
         <h4>Roadmap</h4>
         <p>
             The main goal currently is to have XML reading. For that to be done
-            efficiently a refactoring of streams library is needed &mdash; most
-            probably they will be separated into sources and sinks (bug
-            <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2941208&amp;group_id=233297&amp;atid=1089171">2941208</a>)
-            with an addition of filters.  Also, source file references (bug
+            efficiently source file references (bug
             <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2951097&amp;group_id=233297&amp;atid=1089171">2951097</a>)
-            and conversion error reporting are better be implemented along with
-            XML reading.
+            and conversion error reporting are better be implemented.
+        </p>
+        <p>
+            It seems that the current users need plain text output more than
+            editing, so the priority of output to the HID specification
+            example format was raised. The plain text output will be
+            implemented right after or in parallel with XML reading.
         </p>
         <p>
             Then validation needs to be cleaned up (bugs
@@ -242,7 +244,8 @@
             <a href="http://www.usb.org/developers/hidpage/hidpar.pdf">HID Parser Error Checking</a>.
         </p>
         <p>
-            At some point in time support for outputting to C source and HID specification example format may be implemented.
+            At some point in time support for outputting to C source will be
+            added.
         </p>
 
         <h3><a id="proj-hidrd-dump"></a>HID report descriptor dumping utility &mdash; <em>hidrd-dump</em></h3>
@@ -291,8 +294,43 @@
 
         <p>
             After improving command line interface the development on
-            hidrd-dump will be stopped in favor of <em>hid-dump</em> &mdash;
+            hidrd-dump will be stopped in favor of <a href="#proj-hid-dump"><em>hid-dump</em></a> &mdash;
             a new project based on libusb 1.0.
+        </p>
+
+
+        <h3><a id="proj-hid-dump"></a>HID dumping utility &mdash; <em>hid-dump</em></h3>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>Status</th>
+                    <td>Planning</td>
+                </tr>
+                <tr>
+                    <th>License</th>
+                    <td>GPL v2 or later</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>About</h4>
+
+        <p>
+            <em>Hid-dump</em> is planned to be a multi-purpose HID dumping
+            utility. It will use libusb 1.0 to dump report descriptors and
+            reports themselves. It will support addressing all the device
+            interfaces and reattaching the device back to the kernel driver.
+        </p>
+
+        <h4>Roadmap</h4>
+
+        <p>
+            The development will be started after XML reading is implemented
+            in <a href="#proj-hidrd"><em>hidrd</em></a>.
+            The report descriptor dumping will be implemented first, along
+            with interface addressing and reattaching. Then the report
+            dumping will be added.
         </p>
 
 
