@@ -180,7 +180,7 @@
             <tbody>
                 <tr>
                     <th>Status</th>
-                    <td>Release 0.1.2 available</td>
+                    <td>Release 0.2.0 available</td>
                 </tr>
                 <tr>
                     <th>License</th>
@@ -214,38 +214,189 @@
             <a href="http://www.usb.org/developers/devclass_docs/Hut1_12.pdf">HID Usage Tables 1.12</a>.
         </p>
         <p>
-            Currently, native descriptor format is fully supported.  A HID
-            report descriptor XML schema is developed and XML writing is
-            supported.  A tool called &quot;<em>hidrd-convert</em>&quot; is
-            implemented and could be used to convert descriptors from native to
-            XML format.
+            Currently, native descriptor format is fully supported. An XML
+            format is developed and supported for input and output.
+            Specification example format is supported for output. Output to
+            C source code with specification example format comments is
+            supported. A tool called &quot;<em>hidrd-convert</em>&quot; is
+            implemented and could be used to convert descriptors between
+            formats.
         </p>
+
+        <h4><a id="proj-hidrd-examples"></a>Examples</h4>
+
+        <p>
+            Convert a native (binary) descriptor to a specification
+            example format:
+        </p>
+        <pre>$ <strong>xxd -r -p &lt;&lt;END | hidrd-convert -o spec</strong>
+&gt; 05 01 09 02 a1 01 09 01 a0 05 09 19 01 29 03 14
+&gt; 25 01 75 01 95 03 81 02 75 05 95 01 81 01 05 01
+&gt; 09 30 09 31 09 38 15 81 25 7f 75 08 95 03 81 06
+&gt; c0 c0
+&gt; END
+Usage Page (Desktop),               ; Generic desktop controls (01h)
+Usage (Mouse),                      ; Mouse (02h, application collection)
+Collection (Application),
+    Usage (Pointer),                ; Pointer (01h, physical collection)
+    Collection (Physical),
+        Usage Page (Button),        ; Button (09h)
+        Usage Minimum (01h),
+        Usage Maximum (03h),
+        Logical Minimum (0),
+        Logical Maximum (1),
+        Report Size (1),
+        Report Count (3),
+        Input (Variable),
+        Report Size (5),
+        Report Count (1),
+        Input (Constant),
+        Usage Page (Desktop),       ; Generic desktop controls (01h)
+        Usage (X),                  ; X (30h, dynamic value)
+        Usage (Y),                  ; Y (31h, dynamic value)
+        Usage (Wheel),              ; Wheel (38h, dynamic value)
+        Logical Minimum (-127),
+        Logical Maximum (127),
+        Report Size (8),
+        Report Count (3),
+        Input (Variable, Relative),
+    End Collection,
+End Collection</pre>
+
+        <p>Generate source code from a descriptor XML:</p>
+
+        <pre>$ <strong>hidrd-convert -i xml -o code &lt;&lt;END</strong>
+&gt; &lt;?xml version="1.0"?&gt;
+&gt; &lt;descriptor xmlns="http://digimend.sourceforge.net"
+&gt;             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+&gt;             xsi:schemaLocation="http://digimend.sourceforge.net hidrd.xsd"&gt;
+&gt;   &lt;usage_page&gt;desktop&lt;!-- Generic desktop controls (01h) --&gt;&lt;/usage_page&gt;
+&gt;   &lt;usage&gt;desktop_mouse&lt;!-- Mouse (02h, application collection) --&gt;&lt;/usage&gt;
+&gt;   &lt;COLLECTION type="application"&gt;
+&gt;     &lt;usage&gt;desktop_pointer&lt;!-- Pointer (01h, physical collection) --&gt;&lt;/usage&gt;
+&gt;     &lt;COLLECTION type="physical"&gt;
+&gt;       &lt;usage_page&gt;button&lt;!-- Button (09h) --&gt;&lt;/usage_page&gt;
+&gt;       &lt;usage_minimum&gt;01&lt;/usage_minimum&gt;
+&gt;       &lt;usage_maximum&gt;03&lt;/usage_maximum&gt;
+&gt;       &lt;logical_minimum&gt;0&lt;/logical_minimum&gt;
+&gt;       &lt;logical_maximum&gt;1&lt;/logical_maximum&gt;
+&gt;       &lt;report_size&gt;1&lt;/report_size&gt;
+&gt;       &lt;report_count&gt;3&lt;/report_count&gt;
+&gt;       &lt;input&gt;
+&gt;         &lt;variable/&gt;
+&gt;       &lt;/input&gt;
+&gt;       &lt;report_size&gt;5&lt;/report_size&gt;
+&gt;       &lt;report_count&gt;1&lt;/report_count&gt;
+&gt;       &lt;input&gt;
+&gt;         &lt;constant/&gt;
+&gt;       &lt;/input&gt;
+&gt;       &lt;usage_page&gt;desktop&lt;!-- Generic desktop controls (01h) --&gt;&lt;/usage_page&gt;
+&gt;       &lt;usage&gt;desktop_x&lt;!-- X (30h, dynamic value) --&gt;&lt;/usage&gt;
+&gt;       &lt;usage&gt;desktop_y&lt;!-- Y (31h, dynamic value) --&gt;&lt;/usage&gt;
+&gt;       &lt;usage&gt;desktop_wheel&lt;!-- Wheel (38h, dynamic value) --&gt;&lt;/usage&gt;
+&gt;       &lt;logical_minimum&gt;-127&lt;/logical_minimum&gt;
+&gt;       &lt;logical_maximum&gt;127&lt;/logical_maximum&gt;
+&gt;       &lt;report_size&gt;8&lt;/report_size&gt;
+&gt;       &lt;report_count&gt;3&lt;/report_count&gt;
+&gt;       &lt;input&gt;
+&gt;         &lt;variable/&gt;
+&gt;         &lt;relative/&gt;
+&gt;       &lt;/input&gt;
+&gt;     &lt;/COLLECTION&gt;
+&gt;   &lt;/COLLECTION&gt;
+&gt; &lt;/descriptor&gt;
+&gt; END
+0x05, 0x01, /*  Usage Page (Desktop),               */
+0x09, 0x02, /*  Usage (Mouse),                      */
+0xA1, 0x01, /*  Collection (Application),           */
+0x09, 0x01, /*      Usage (Pointer),                */
+0xA0,       /*      Collection (Physical),          */
+0x05, 0x09, /*          Usage Page (Button),        */
+0x19, 0x01, /*          Usage Minimum (01h),        */
+0x29, 0x03, /*          Usage Maximum (03h),        */
+0x14,       /*          Logical Minimum (0),        */
+0x25, 0x01, /*          Logical Maximum (1),        */
+0x75, 0x01, /*          Report Size (1),            */
+0x95, 0x03, /*          Report Count (3),           */
+0x81, 0x02, /*          Input (Variable),           */
+0x75, 0x05, /*          Report Size (5),            */
+0x95, 0x01, /*          Report Count (1),           */
+0x81, 0x01, /*          Input (Constant),           */
+0x05, 0x01, /*          Usage Page (Desktop),       */
+0x09, 0x30, /*          Usage (X),                  */
+0x09, 0x31, /*          Usage (Y),                  */
+0x09, 0x38, /*          Usage (Wheel),              */
+0x15, 0x81, /*          Logical Minimum (-127),     */
+0x25, 0x7F, /*          Logical Maximum (127),      */
+0x75, 0x08, /*          Report Size (8),            */
+0x95, 0x03, /*          Report Count (3),           */
+0x81, 0x06, /*          Input (Variable, Relative), */
+0xC0,       /*      End Collection,                 */
+0xC0        /*  End Collection                      */</pre>
+
+        <p>Generate a native descriptor from a descriptor XML:</p>
+
+        <pre>$ <strong>hidrd-convert -i xml &lt;&lt;END | od -An -tx1</strong>
+&gt; &lt;?xml version="1.0"?&gt;
+&gt; &lt;descriptor xmlns="http://digimend.sourceforge.net"
+&gt;             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+&gt;             xsi:schemaLocation="http://digimend.sourceforge.net hidrd.xsd"&gt;
+&gt;   &lt;usage_page&gt;desktop&lt;!-- Generic desktop controls (01h) --&gt;&lt;/usage_page&gt;
+&gt;   &lt;usage&gt;desktop_mouse&lt;!-- Mouse (02h, application collection) --&gt;&lt;/usage&gt;
+&gt;   &lt;COLLECTION type="application"&gt;
+&gt;     &lt;usage&gt;desktop_pointer&lt;!-- Pointer (01h, physical collection) --&gt;&lt;/usage&gt;
+&gt;     &lt;COLLECTION type="physical"&gt;
+&gt;       &lt;usage_page&gt;button&lt;!-- Button (09h) --&gt;&lt;/usage_page&gt;
+&gt;       &lt;usage_minimum&gt;01&lt;/usage_minimum&gt;
+&gt;       &lt;usage_maximum&gt;03&lt;/usage_maximum&gt;
+&gt;       &lt;logical_minimum&gt;0&lt;/logical_minimum&gt;
+&gt;       &lt;logical_maximum&gt;1&lt;/logical_maximum&gt;
+&gt;       &lt;report_size&gt;1&lt;/report_size&gt;
+&gt;       &lt;report_count&gt;3&lt;/report_count&gt;
+&gt;       &lt;input&gt;
+&gt;         &lt;variable/&gt;
+&gt;       &lt;/input&gt;
+&gt;       &lt;report_size&gt;5&lt;/report_size&gt;
+&gt;       &lt;report_count&gt;1&lt;/report_count&gt;
+&gt;       &lt;input&gt;
+&gt;         &lt;constant/&gt;
+&gt;       &lt;/input&gt;
+&gt;       &lt;usage_page&gt;desktop&lt;!-- Generic desktop controls (01h) --&gt;&lt;/usage_page&gt;
+&gt;       &lt;usage&gt;desktop_x&lt;!-- X (30h, dynamic value) --&gt;&lt;/usage&gt;
+&gt;       &lt;usage&gt;desktop_y&lt;!-- Y (31h, dynamic value) --&gt;&lt;/usage&gt;
+&gt;       &lt;usage&gt;desktop_wheel&lt;!-- Wheel (38h, dynamic value) --&gt;&lt;/usage&gt;
+&gt;       &lt;logical_minimum&gt;-127&lt;/logical_minimum&gt;
+&gt;       &lt;logical_maximum&gt;127&lt;/logical_maximum&gt;
+&gt;       &lt;report_size&gt;8&lt;/report_size&gt;
+&gt;       &lt;report_count&gt;3&lt;/report_count&gt;
+&gt;       &lt;input&gt;
+&gt;         &lt;variable/&gt;
+&gt;         &lt;relative/&gt;
+&gt;       &lt;/input&gt;
+&gt;     &lt;/COLLECTION&gt;
+&gt;   &lt;/COLLECTION&gt;
+&gt; &lt;/descriptor&gt;
+&gt; END
+ 05 01 09 02 a1 01 09 01 a0 05 09 19 01 29 03 14
+ 25 01 75 01 95 03 81 02 75 05 95 01 81 01 05 01
+ 09 30 09 31 09 38 15 81 25 7f 75 08 95 03 81 06
+ c0 c0</pre>
 
         <h4>Roadmap</h4>
         <p>
-            The main goal currently is to have XML reading. For that to be done
-            efficiently source file references (bug
-            <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2951097&amp;group_id=233297&amp;atid=1089171">2951097</a>)
-            and conversion error reporting are better be implemented.
-        </p>
-        <p>
-            It seems that the current users need plain text output more than
-            editing, so the priority of output to the HID specification
-            example format was raised. The plain text output will be
-            implemented right after or in parallel with XML reading.
-        </p>
-        <p>
+            Some internal redesign should be made, particularly in error reporting. Next, perhaps, specification example input support should be implemented.
             Then validation needs to be cleaned up (bugs
             <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2950561&amp;group_id=233297&amp;atid=1089171">2950561</a>
             and
             <a href="https://sourceforge.net/tracker/?func=detail&amp;aid=2941207&amp;group_id=233297&amp;atid=1089171">2941207</a>).
+        </p>
+        <p>
             After that, the time may come to implement a stream validation
             filter with recommendations from
             <a href="http://www.usb.org/developers/hidpage/hidpar.pdf">HID Parser Error Checking</a>.
         </p>
         <p>
-            At some point in time support for outputting to C source will be
-            added.
+            For now, although, active development of hidrd is put on hold in favor of <a href="#proj-hid-dump"><em>hid-dump</em></a>.
         </p>
 
         <h3><a id="proj-hidrd-dump"></a>HID report descriptor dumping utility &mdash; <em>hidrd-dump</em></h3>
