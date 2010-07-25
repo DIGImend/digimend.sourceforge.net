@@ -394,9 +394,6 @@ End Collection</pre>
             filter with recommendations from
             <a href="http://www.usb.org/developers/hidpage/hidpar.pdf">HID Parser Error Checking</a>.
         </p>
-        <p>
-            For now, although, active development of hidrd is put on hold in favor of <a href="#proj-hid-dump"><em>hid-dump</em></a>.
-        </p>
 
         <h3><a id="proj-hidrd-dump"></a>HID report descriptor dumping utility &mdash; <em>hidrd-dump</em></h3>
 
@@ -443,9 +440,8 @@ End Collection</pre>
         <h4>Roadmap</h4>
 
         <p>
-            After improving command line interface the development on
-            hidrd-dump will be stopped in favor of <a href="#proj-hid-dump"><em>hid-dump</em></a> &mdash;
-            a new project based on libusb 1.0.
+            Hidrd-dump is replaced by <a href="#proj-hid-dump"><em>hid-dump</em></a> &mdash;
+            a project based on libusb 1.0.
         </p>
 
 
@@ -455,7 +451,7 @@ End Collection</pre>
             <tbody>
                 <tr>
                     <th>Status</th>
-                    <td>Pre-Alpha</td>
+                    <td><a href="http://sourceforge.net/projects/digimend/files/hid-dump/hid-dump-1.0.tar.gz/download">Release 1.0 available</a></td>
                 </tr>
                 <tr>
                     <th>License</th>
@@ -481,20 +477,126 @@ End Collection</pre>
         <h4>About</h4>
 
         <p>
-            <em>Hid-dump</em> is planned to be a multi-purpose HID dumping
-            utility. It will use libusb 1.0 to dump report descriptors and
-            reports themselves. It will support addressing all the device
-            interfaces and reattaching the device back to the kernel driver.
+            <em>Hid-dump</em> is a HID dumping utility based on libusb 1.0.
+            It dumps USB HID device report descriptors and reports
+            themselves as they are being sent for all or specific device
+            interfaces.
         </p>
 
         <h4>Roadmap</h4>
 
         <p>
-            The report descriptor dumping will be implemented first, along
-            with interface addressing and reattaching. Then the report
-            dumping will be added.
+            Hid-dump is quite complete, although a physical descriptor
+            dumping feature may be added in the future.
         </p>
 
+        <h4>Usage</h4>
+
+        <p>
+            Here is the output of hid-dump --help:
+        </p>
+        <pre>$ <strong>hid-dump --help</strong>
+Usage: hid-dump [OPTION]... &lt;bus&gt; &lt;dev&gt; [if]
+Dump a USB device HID report descriptor(s) and/or stream(s).
+Arguments:
+  bus                      bus number (1-255)
+  dev                      device address (1-255)
+  if                       interface number (0-254);
+                           if omitted, all device HID interfaces
+                           are dumped
+
+Options:
+  -h, --help               this help message
+  -e, --entity=STRING      what to dump: either "descriptor",
+                           "stream" or "both"; value can be
+                           abbreviated
+  -p, --stream-paused      start with the stream dump output paused
+  -f, --stream-feedback    enable stream dumping feedback: for every
+                           transfer dumped a dot is printed to stderr
+
+Default options: --entity=descriptor
+
+Signals:
+  USR1/USR2                pause/resume the stream dump output
+
+</pre>
+
+        <p>
+            You could use hid-dump along with hidrd-convert to dump report
+            descriptors in human-readable format. Like this:
+        </p>
+
+        <pre>$ <strong>sudo hid-dump --entity=descriptor 2 3 0 | grep -v : | tr -d ' \n' | xxd -r -p | hidrd-convert -o spec</strong>
+Usage Page (Desktop),               ; Generic desktop controls (01h)
+Usage (Mouse),                      ; Mouse (02h, application collection)
+Collection (Application),
+    Usage (Pointer),                ; Pointer (01h, physical collection)
+    Collection (Physical),
+        Usage Page (Button),        ; Button (09h)
+        Usage Minimum (01h),
+        Usage Maximum (03h),
+        Logical Minimum (0),
+        Logical Maximum (1),
+        Report Size (1),
+        Report Count (3),
+        Input (Variable),
+        Report Size (5),
+        Report Count (1),
+        Input (Constant),
+        Usage Page (Desktop),       ; Generic desktop controls (01h)
+        Usage (X),                  ; X (30h, dynamic value)
+        Usage (Y),                  ; Y (31h, dynamic value)
+        Usage (Wheel),              ; Wheel (38h, dynamic value)
+        Logical Minimum (-127),
+        Logical Maximum (127),
+        Report Size (8),
+        Report Count (3),
+        Input (Variable, Relative),
+    End Collection,
+End Collection</pre>
+
+        <p>
+            A 'tr' invocation here is only needed to work around a bug in xxd (see
+            Debian Bug <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=567041">567041</a>).
+            It is not necessary if it is already fixed in your distribution.
+        </p>
+
+        <p>
+            Here is an example of a stream dump from the mouse with report descriptor above:
+        </p>
+
+        <pre>$ <strong>sudo hid-dump --entity=stream 2 3</strong>
+000:STREAM                     1280060100.210022
+ 00 FF 00 00
+
+000:STREAM                     1280060100.217988
+ 00 FE 00 00
+
+000:STREAM                     1280060100.225985
+ 00 FC 01 00
+
+000:STREAM                     1280060100.233995
+ 00 FE 01 00
+
+000:STREAM                     1280060100.241992
+ 00 FF 01 00
+
+000:STREAM                     1280060100.249995
+ 00 FE 02 00
+
+000:STREAM                     1280060100.257993
+ 00 FF 01 00
+
+^C
+</pre>
+
+        <p>
+            Here "000" is the interface number, "STREAM" indicates stream chunk
+            and the number to the right is the timestamp in seconds since
+            epoch. The hexadecimal numbers below is the stream itself. Usually
+            every chunk includes a whole report, but if the report is bigger
+            than endpoint's wMaxPacketSize, it will span several chunks.
+        </p>
 
         <h3><a id="proj-evdev-dump"></a>Evdev stream dumping utility &mdash; <em>evdev-dump</em></h3>
 
