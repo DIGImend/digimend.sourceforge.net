@@ -66,11 +66,10 @@
         </p>
 
         <p>
-            For this to be possible the following tools are needed: USB HID
-            report descriptor dumping and editing utilities, HID report
-            stream dumping utility, evdev event stream dumping utility. Of
-            these only the stream dumping utility is missing and descriptor
-            dumping utility is unsuitable for multi-descriptor devices.
+            All the basic tools needed are completed, but we still need a
+            convenient way for tablet owners to quickly and easily gather
+            tablet information and diagnostics themselves. For this, a
+            diagnostics "wizard" named "digimend-diag" is being implemented.
         </p>
 
         <p>
@@ -80,7 +79,7 @@
 
         <p>
             At last, the most remote task is to improve user experience by
-            providing GUI tools for tuning tablet response for the input.
+            providing GUI tools for tuning tablet response to the input.
             This they really need &mdash; the general quality of such
             tablets is not very high and input could be quirky and
             unreliable.
@@ -171,6 +170,37 @@
             with the implementation of the required tools, the work on evdev
             patches will be continued and negotiations with the original
             developer will be resumed.
+        </p>
+
+        <h3><a id="proj-digimend-diag"></a>Tablet diagnostics collection "wizard" &mdash; <em>digimend-diag</em></h3>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>Status</th>
+                    <td>Pre-alpha</td>
+                </tr>
+                <tr>
+                    <th>License</th>
+                    <td>GPL v2 or later</td>
+                </tr>
+                <tr>
+                    <th>Sources</th>
+                    <td>
+                        <a href="http://digimend.svn.sourceforge.net/viewvc/digimend/digimend-diag/">SVN browse</a>
+                        <a href="https://digimend.svn.sourceforge.net/svnroot/digimend/digimend-diag/">SVN tree</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>About</h4>
+
+        <p>
+            Digimend-diag is planned to be a console "wizard", helping tablet
+            owners collect information about their tablets. This information
+            could then be sent to DIGI<em>mend</em> or other developers to help
+            them make the tablets work in Linux.
         </p>
 
         <h3><a id="proj-hidrd"></a>HID report descriptor library and tools &mdash; <em>hidrd</em></h3>
