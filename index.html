@@ -604,7 +604,7 @@ End Collection</pre>
             <tbody>
                 <tr>
                     <th>Status</th>
-                    <td><a href="http://sourceforge.net/projects/digimend/files/evdev-dump/0.2/evdev-dump-0.2.tar.gz/download">Release 0.2 available</a></td>
+                    <td><a href="http://sourceforge.net/projects/digimend/files/evdev-dump/evdev-dump-1.0.tar.gz/download">Release 1.0 available</a></td>
                 </tr>
                 <tr>
                     <th>License</th>
@@ -641,6 +641,47 @@ End Collection</pre>
             Only bug fixing and occasional minor improvements are expected.
         </p>
 
+        <h4>Usage</h4>
+
+        <p>
+            Here is the output of evdev-dump --help:
+        </p>
+        <pre>$ <strong>evdev-dump --help</strong>
+Usage: evdev-dump [OPTION]... &lt;device&gt; [device]...
+Dump event device(s).
+
+Arguments:
+  device           event device path, e.g. /dev/input/event1
+
+Options:
+  -h, --help       this help message
+  -p, --paused     start with the output paused
+  -f, --feedback   enable feedback: for every event dumped
+                   a dot is printed to stderr
+
+Signals:
+  USR1/USR2        pause/resume the output
+
+</pre>
+
+        <p>
+            An example of the output:
+        </p>
+        <pre>$ <strong>sudo evdev-dump /dev/input/event*</strong>
+/dev/input/event8  1280238140.003969 EV_MSC MSC_SCAN 0x0000001E
+/dev/input/event8  1280238140.003995 EV_KEY KEY_A 0x00000001
+/dev/input/event8  1280238140.004001 EV_SYN SYN_REPORT 0x00000000
+/dev/input/event8  1280238140.063443 EV_MSC MSC_SCAN 0x0000001E
+/dev/input/event8  1280238140.063473 EV_KEY KEY_A 0x00000000
+/dev/input/event8  1280238140.063481 EV_SYN SYN_REPORT 0x00000000
+/dev/input/event12 1280238150.525246 EV_MSC MSC_SCAN 0x00090001
+/dev/input/event12 1280238150.525262 EV_KEY BTN_MOUSE 0x00000001
+/dev/input/event12 1280238150.525294 EV_SYN SYN_REPORT 0x00000000
+/dev/input/event12 1280238150.693247 EV_MSC MSC_SCAN 0x00090001
+/dev/input/event12 1280238150.693267 EV_KEY BTN_MOUSE 0x00000000
+/dev/input/event12 1280238150.693307 EV_SYN SYN_REPORT 0x00000000
+^C
+</pre>
 
         <!--  ---------------------------------------------------------  -->
         <h2>How to help</h2>
