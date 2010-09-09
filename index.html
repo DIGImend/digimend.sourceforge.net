@@ -55,34 +55,24 @@
         </p>
 
         <!--  ---------------------------------------------------------  -->
+        <h2>Status</h2>
+        <!--  ---------------------------------------------------------  -->
+        <p>
+            Eight tablet models are supported, which are rebranded as more
+            than 30 products. See the
+            <a href="http://digimend.git.sourceforge.net/git/gitweb.cgi?p=digimend/kernel-patches.git;a=blob_plain;f=COMPATIBILITY;hb=v0.1">compatibility list</a>.
+            Support for 7 of them (minus yet untested Waltop Slim Tablet 12.1")
+            is accepted into the kernel and will appear in the 2.6.37 release.
+            Tablet-related fixes are accepted into the evdev X.org driver
+            (xf86-input-evdev) and will appear in the 2.5.99 release.
+
+        <!--  ---------------------------------------------------------  -->
         <h2>Roadmap</h2>
         <!--  ---------------------------------------------------------  -->
         <p>
-            The plan, in the first place, is to make these tablets work
-            correctly with the Linux kernel's generic USB HID driver. The
-            project is based on the assumption that the main problem with
-            the kernel support are incorrect or incomplete HID report
-            descriptors which the tablets provide.
-        </p>
-
-        <p>
-            All the basic tools needed are completed, but we still need a
-            convenient way for tablet owners to quickly and easily gather
-            tablet information and diagnostics themselves. For this, a
-            diagnostics "wizard" named "digimend-diag" is being implemented.
-        </p>
-
-        <p>
-            The next layer to fix is the generic X.org input driver &mdash;
-            evdev. It needs to be extended to support tablets better.
-        </p>
-
-        <p>
-            At last, the most remote task is to improve user experience by
-            providing GUI tools for tuning tablet response to the input.
-            This they really need &mdash; the general quality of such
-            tablets is not very high and input could be quirky and
-            unreliable.
+            Support for more tablet models will be added. The tablets supported
+            so far are to be made supported by the wacom X.org driver
+            (xf86-input-wacom).
         </p>
 
         <!--  ---------------------------------------------------------  -->
@@ -101,7 +91,7 @@
             <tbody>
                 <tr>
                     <th>Status</th>
-                    <td>Proof-of-concept</td>
+                    <td><a href="http://sourceforge.net/projects/digimend/files/kernel-patches/digimend-kernel-patches-0.1.tar.gz/download">Release 0.1 available</a></td>
                 </tr>
                 <tr>
                     <th>License</th>
@@ -110,8 +100,16 @@
                 <tr>
                     <th>Sources</th>
                     <td>
+                        <a href="https://sourceforge.net/projects/digimend/files/kernel-patches/">Release tarballs</a>
                         <a href="http://digimend.git.sourceforge.net/git/gitweb.cgi?p=digimend/kernel-patches.git;a=summary">GIT browse</a>
                         <a href="git://digimend.git.sourceforge.net/gitroot/digimend/kernel-patches.git">GIT repository</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Bugs</th>
+                    <td>
+                        <a href="https://sourceforge.net/tracker/?func=browse&amp;group_id=233297&amp;atid=1089171&amp;category=1521390">Browse</a>
+                        <a href="https://sourceforge.net/tracker/?func=add&amp;group_id=233297&amp;atid=1089171">Submit</a> (please use kernel-patches category)
                     </td>
                 </tr>
             </tbody>
@@ -119,27 +117,54 @@
 
         <h4>About</h4>
         <p>
-            Only proof of concept work has been done: the patches fix
-            support for tablets based on UC-LOGIC WP8060U, namely Genius
-            MousePen 8x6.
+            The first release brings support for 8 tablet models, which are
+            rebranded as more than 30 products. Please see
+            <a href="http://digimend.git.sourceforge.net/git/gitweb.cgi?p=digimend/kernel-patches.git;a=blob_plain;f=COMPATIBILITY;hb=v0.1">the COMPATIBILITY file</a>
+            for details. Only 2.6.36-rc3 kernel patch is available for now.
+        </p>
+
+        <p>
+            Support for 7 of them (minus untested Waltop Slim Tablet 12.1") is
+            accepted into the kernel by Jiri Kosina - the HID core layer
+            maintainer and will appear in the 2.6.37 release.
+        </p>
+
+        <h4>Dependencies</h4>
+        <p>
+            The tablets require yet unreleased version of the evdev X.org
+            driver (xf86-input-evdev) to work, available from its
+            <a href="git://anongit.freedesktop.org/xorg/driver/xf86-input-evdev">git repository</a>.
+            Alternatively, the <a href="#proj-evdev-patches">evdev patches</a>
+            could be used to make it compatible.
+        </p>
+
+        <p>
+            Some Waltop tablets are reported to work with the
+            <a href="https://sourceforge.net/projects/linuxwacom/files/xf86-input-wacom/">latest versions</a>
+            of the wacom X.org driver (xf86-input-wacom).
         </p>
 
         <h4>Roadmap</h4>
         <p>
-            When required tools are implemented, support for more devices
-            will be added and the attempts to submit to upstream will start.
-
-            The priority is the most widely available unsupported devices
-            and kernel versions used by stable distributions.
+            Back-porting to older kernel versions used by major distributions is
+            going to begin sometime soon. Support for other models will
+            be added as they become available to the developer or someone
+            volunteers to aid with diagnostics and testing of their tablets.
         </p>
 
-        <h3><a id="proj-evdev-patches"></a>X.org patches</h3>
+        <p>
+            The Waltop tablet driver (hid-waltop) will be updated to use
+            "tablet" mode which doesn't cripple the resolution and provides
+            full wheel functions on bigger models.
+        </p>
+
+        <h3><a id="proj-evdev-patches"></a>X.org evdev driver patches</h3>
 
         <table>
             <tbody>
                 <tr>
                     <th>Status</th>
-                    <td>Proof-of-concept</td>
+                    <td><a href="http://sourceforge.net/projects/digimend/files/evdev-patches/digimend-evdev-patches-0.1.tar.gz/download">Release 0.1 available</a></td>
                 </tr>
                 <tr>
                     <th>License</th>
@@ -148,28 +173,38 @@
                 <tr>
                     <th>Sources</th>
                     <td>
+                        <a href="https://sourceforge.net/projects/digimend/files/evdev-patches/">Release tarballs</a>
                         <a href="http://digimend.git.sourceforge.net/git/gitweb.cgi?p=digimend/evdev-patches.git;a=summary">GIT browse</a>
                         <a href="git://digimend.git.sourceforge.net/gitroot/digimend/evdev-patches.git">GIT repository</a>
                     </td>
+                <tr>
+                    <th>Bugs</th>
+                    <td>
+                        <a href="https://sourceforge.net/tracker/?func=browse&amp;group_id=233297&amp;atid=1089171&amp;category=1521411">Browse</a>
+                        <a href="https://sourceforge.net/tracker/?func=add&amp;group_id=233297&amp;atid=1089171">Submit</a> (please use evdev-patches category)
+                    </td>
+                </tr>
                 </tr>
             </tbody>
         </table>
 
         <h4>About</h4>
         <p>
-            Only proof of concept work has been done: the only working
-            version of the patch is for 1:2.0.8-1 Debian version of the
-            evdev driver. The patch wasn't accepted by the original
-            developer because it tries to cater to The GIMP's
-            idiosyncrasies.
+            The first release brings support for simple tablets. The vanilla
+            version 2.5.0 patch is verified to work, its changes are accepted
+            into the
+            <a href="git://anongit.freedesktop.org/xorg/driver/xf86-input-evdev">evdev git repository</a>
+            and will appear in the 2.5.99 release. The stable Debian version
+            1:2.0.8-1 patch is not likely to work correctly - bug reports are
+            welcome.
         </p>
 
         <h4>Roadmap</h4>
         <p>
-            After the fixing of the kernel support will be made possible
-            with the implementation of the required tools, the work on evdev
-            patches will be continued and negotiations with the original
-            developer will be resumed.
+            The patches for the older versions are to be implemented or fixed.
+            No significant functionality additions are planned - the
+            development focus has switched to making the wacom X.org driver
+            (xf86-input-wacom) work with the supported tablets.
         </p>
 
         <h3><a id="proj-digimend-diag"></a>Tablet diagnostics collection "wizard" &mdash; <em>digimend-diag</em></h3>
@@ -618,7 +653,7 @@ End Collection</pre>
 
         <p>
             There exists a similar tool called
-            "<A href="http://cgit.freedesktop.org/~whot/evtest/">evtest</A>".
+            "<a href="http://cgit.freedesktop.org/~whot/evtest/">evtest</a>".
             Additionally it can dump device capabilities, but can't dump
             more than one device at once. It is found in many distributions
             as a separate package of the same name.
