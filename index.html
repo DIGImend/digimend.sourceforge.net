@@ -60,7 +60,7 @@
         <p>
             Eight tablet models are supported, which are rebranded as more
             than 30 products. See the
-            <a href="http://digimend.git.sourceforge.net/git/gitweb.cgi?p=digimend/kernel-patches.git;a=blob_plain;f=COMPATIBILITY;hb=v0.2">compatibility list</a>.
+            <a href="http://digimend.git.sourceforge.net/git/gitweb.cgi?p=digimend/kernel-patches.git;a=blob_plain;f=COMPATIBILITY;hb=v0.3">compatibility list</a>.
             Patches are accepted into the kernel and will appear in the
             2.6.37 release. Tablet-related fixes are accepted into the evdev
             X.org driver (xf86-input-evdev) and will appear in the 2.5.99
@@ -90,7 +90,7 @@
             <tbody>
                 <tr>
                     <th>Status</th>
-                    <td><a href="http://sourceforge.net/projects/digimend/files/kernel-patches/digimend-kernel-patches-0.2.tar.gz/download">Release 0.2 available</a></td>
+                    <td><a href="http://sourceforge.net/projects/digimend/files/kernel-patches/digimend-kernel-patches-0.3.tar.gz/download">Release 0.3 available</a></td>
                 </tr>
                 <tr>
                     <th>License</th>
@@ -116,10 +116,10 @@
 
         <h4>About</h4>
         <p>
-            The latest release brings support for 8 tablet models, which are
+            The latest release has support for 8 tablet models, which are
             rebranded as more than 30 products. Please see
-            <a href="http://digimend.git.sourceforge.net/git/gitweb.cgi?p=digimend/kernel-patches.git;a=blob_plain;f=COMPATIBILITY;hb=v0.2">the COMPATIBILITY file</a>
-            for details. Only 2.6.32, 2.6.35 and 2.6.36-rc3 vanilla kernel
+            <a href="http://digimend.git.sourceforge.net/git/gitweb.cgi?p=digimend/kernel-patches.git;a=blob_plain;f=COMPATIBILITY;hb=v0.3">the COMPATIBILITY file</a>
+            for details. Only 2.6.32, 2.6.35 and 2.6.36 vanilla kernel
             patches are available for now.
         </p>
 
@@ -549,9 +549,11 @@ Signals:
 
         <p>
             <strong>Warning:</strong> please be careful running usbhid-dump
-            without arguments as a superuser. If you're using a USB keyboard
-            to control your terminal, it will be detached for the dumping
-            and you will unable to terminate usbhid-dump and regain control.
+            as a superuser without limiting your device selection with
+            options. Because usbhid-dump will try to dump every device
+            possible and If you're using a USB keyboard to control your
+            terminal, it will be detached and you will be unable to
+            terminate usbhid-dump and regain control.
         </p>
 
         <p>
